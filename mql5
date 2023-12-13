@@ -1,0 +1,76 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                                   EA Machine.mq5 |
+//|                       https://www.forexroboteasy.com              |
+//|                                               Forex Robot Easy Team|
+//+------------------------------------------------------------------+
+
+// Define the input parameters for the EA Machine
+input double LotSize = 0.01;
+input int StopLoss = 100;
+input int TakeProfit = 200;
+input int MagicNumber = 123456;
+input string Comment = 'EA Machine';
+
+// Define the necessary trade functions
+void openBuyOrder(double lotSize, int stopLoss, int takeProfit, int magicNumber, string comment)
+{
+    // Implement the logic for opening a buy order here
+}
+
+void openSellOrder(double lotSize, int stopLoss, int takeProfit, int magicNumber, string comment)
+{
+    // Implement the logic for opening a sell order here
+}
+
+void closeOrder(int ticket)
+{
+    // Implement the logic for closing an order here
+}
+
+//+------------------------------------------------------------------+
+//| Expert Advisor initialization function                              |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Perform any necessary initialization here
+    
+    return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Expert Advisor start function                                      |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+    // Implement the EA Machine trading algorithm here
+    // Use Trader Yuri's extensive trading experience and expertise
+    
+    // Example trade logic:
+    if (MarketInfo(Symbol(), MODE_ASK) > MarketInfo(Symbol(), MODE_BID))
+    {
+        openBuyOrder(LotSize, StopLoss, TakeProfit, MagicNumber, Comment);
+    }
+    else
+    {
+        openSellOrder(LotSize, StopLoss, TakeProfit, MagicNumber, Comment);
+    }
+    
+    // Close all open orders after 10 seconds
+    Sleep(10000);
+    for (int i = OrdersTotal() - 1; i >= 0; i--)
+    {
+        if (OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+        {
+            closeOrder(OrderTicket());
+        }
+    }
+}
+
+//+------------------------------------------------------------------+
+//| Expert Advisor deinitialization function                            |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Perform any necessary cleanup and finalization here
+}
